@@ -1,0 +1,60 @@
+pull_request_rules:
+  - name: Automatic merge on approval
+    conditions:
+        - "#approved-reviews-by>=1"
+        - check-success=build
+        - base=main
+        - label=ready-to-merge
+    actions:
+        label:
+            add: 
+                - already reviewed
+        merge:
+            method: merge
+
+  - name: Automatic give label php
+    conditions:
+        - files~=\.php$
+    actions:
+        label:
+            add: 
+                - need review php team
+        request_reviews:
+            teams:
+                - "@Gresda-Community/php-team"
+
+  - name: Automatic give label html
+    conditions:
+        - files~=\.html$
+    actions:
+        label:
+            add:
+                - need review html team
+        request_reviews:
+            teams:
+                - "@Gresda-Community/html-team"
+
+  - name: Automatic give label js
+    conditions:
+        - files~=\.js$
+    actions:
+        label:
+            add:
+                - need review js team
+        request_reviews:
+            teams:
+                - "@Gresda-Community/js-team"
+    
+  - name: Automatic give label md
+    conditions:
+        - files~=\.md$
+    actions:
+        label:
+            add:
+                - need review md team
+        request_reviews:
+            teams:
+                - "@Gresda-Community/md-team"
+ 
+
+    
