@@ -1,0 +1,22 @@
+pull_request_rules:
+  - name: Automatic give label need-review
+    conditions:
+      - "#approved-reviews-by<1"
+    actions:
+      label:
+        add:
+          - need-review
+      request_reviews:
+        users:
+          - kvnrynfl
+          - lanisriagustin
+
+  - name: Automatic give label ready-to-merge
+    conditions:
+      - "#approved-reviews-by>=1"
+      - check-success=build
+    actions:
+      label:
+        add:
+          - already-reviewed
+          - ready-to-merge
