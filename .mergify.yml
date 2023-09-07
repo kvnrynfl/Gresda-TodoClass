@@ -1,11 +1,12 @@
 pull_request_rules:
   - name: Automatic give label need-review
     conditions:
-      - "#approved-reviews-by<1"
+      - "-closed"
+      - "#approved-reviews-by=0"
     actions:
       label:
         add:
-          - need-review
+          - 1-need-review
       request_reviews:
         users:
           - kvnrynfl
@@ -13,10 +14,21 @@ pull_request_rules:
 
   - name: Automatic give label ready-to-merge
     conditions:
+      - "-closed"
       - "#approved-reviews-by>=1"
-      - check-success=build
+      - "#changes-requested-reviews-by=0"
+      - check-success=Codacy Static Code Analysis
     actions:
       label:
         add:
-          - already-reviewed
-          - ready-to-merge
+          - 2-already-reviewed
+          - 3-ready-to-merge
+
+  - name: Automatic label "merged" after merge
+    conditions:
+      - merged
+    actions:
+      label:
+        add:
+          - 4-merged
+      close:
